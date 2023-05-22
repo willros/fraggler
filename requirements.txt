@@ -1,0 +1,10 @@
+matplotlib
+numpy
+networkx
+pandas
+biopython
+scipy
+scikit-learn
+lmfit
+panel
+fire
