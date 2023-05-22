@@ -36,8 +36,8 @@ class PlotPeakArea:
 
         return fig_peaks
 
-    def plot_areas(self, peak_finding_model: str,assay_number: int):
-        
+    def plot_areas(self, peak_finding_model: str, assay_number: int):
+
         self.peak_area.fit_assay_peaks(peak_finding_model, assay_number)
 
         fig_areas, axs = plt.subplots(

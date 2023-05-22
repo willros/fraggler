@@ -32,10 +32,12 @@ def is_overlapping(df: pd.DataFrame) -> bool:
             .loc[lambda x: x[0] > 1]
             .iloc[0, 0]
         )
-        logging.warning(f"""
+        logging.warning(
+            f"""
         Customized peaks contains overlapping ranges
         Starting at value: {dups}
-        """)
+        """
+        )
         return True
     return False
 
@@ -45,22 +47,26 @@ def has_columns(df: pd.DataFrame) -> bool:
     df_columns = set(df.columns)
 
     if len(columns) != len(df_columns):
-        logging.warning(f"""
+        logging.warning(
+            f"""
         Customized peaks table does not containg the right columns.
         Current columns: {df_columns}
         Needed columns: {columns}
-        """)
+        """
+        )
         return False
 
     intersection = columns.intersection(df_columns)
     if len(intersection) != len(df_columns):
-        logging.warning(f"""
+        logging.warning(
+            f"""
         Customized peaks table does not containg the right columns.
         Current columns: {df_columns}
         Needed columns: {columns}
-        """)
+        """
+        )
         return False
-    
+
     return True
 
 
@@ -207,10 +213,12 @@ class PeakAreaDeMultiplex:
             # divide all peaks in each assay into separate dataframes
             self.divided_peaks = [self.divide_peaks(x) for x in self.divided_assays]
             # logging
-            logging.info(f"""
+            logging.info(
+                f"""
             Number of assays found: {self.number_of_assays}
             Number of peaks found: {self.peak_information.shape[0]}
-            """)
+            """
+            )
 
     def find_peaks_agnostic(
         self,

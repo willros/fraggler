@@ -12,6 +12,7 @@ import pandas as pd
 from fraggler.ladder_fitting.peak_ladder_assigner import PeakLadderAssigner
 from fraggler.utils.fsa_file import FsaFile
 
+
 class ModelFittingError(Exception):
     pass
 
@@ -81,19 +82,23 @@ class FitLadderModel:
                 .reset_index()
                 .rename(columns={"index": "time"})
                 .assign(
-                    basepairs=lambda x: self.model.predict(x.time.to_numpy().reshape(-1, 1))
+                    basepairs=lambda x: self.model.predict(
+                        x.time.to_numpy().reshape(-1, 1)
+                    )
                 )
                 .loc[lambda x: x.basepairs >= 0]
             )
-        
+
             if df.shape[0] == df.basepairs.nunique():
                 logging.info(f"Ladder fitting model: {self.model}")
                 return df
             # If not all bp are unique
             self.n_knots += 1
             self.fit_model()
-            
-        raise ModelFittingError("There is a problem with the fitting of the model to the ladder")
+
+        raise ModelFittingError(
+            "There is a problem with the fitting of the model to the ladder"
+        )
 
     def _fit_ROX_ladder(self) -> None:
         """
@@ -103,7 +108,9 @@ class FitLadderModel:
             None.
         """
         self.model = make_pipeline(
-            SplineTransformer(degree=4, n_knots=self.n_knots + 4, extrapolation="continue"),
+            SplineTransformer(
+                degree=4, n_knots=self.n_knots + 4, extrapolation="continue"
+            ),
             LinearRegression(fit_intercept=True),
         )
 

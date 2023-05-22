@@ -68,7 +68,6 @@ class FsaFile:
         else:
             self.size_standard = np.array(self.fsa[self.size_standard_channel])
             self.trace = np.array(self.fsa[trace_channel])
-            
 
     def __repr__(self):
         """

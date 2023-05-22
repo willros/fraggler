@@ -5,7 +5,7 @@ import fraggler
 
 def generate_peak_table(
     in_files: str | list,
-    ladder: str, 
+    ladder: str,
     peak_model: str,
     min_height: int = 100,
     cutoff: int = 175,
@@ -28,10 +28,10 @@ def generate_peak_table(
     Returns:
         pandas.DataFrame: A combined dataframe containing the peak positions and their corresponding areas.
 
-    Reads all the input .fsa files and generates a combined dataframe of all the peaks detected in each file using the 
-    specified ladder and peak model. If a directory is provided instead of specific file paths, all .fsa files within 
-    the directory will be used. Peak detection is based on the specified peak model and other optional parameters, 
-    such as minimum peak height and cutoff value. 
+    Reads all the input .fsa files and generates a combined dataframe of all the peaks detected in each file using the
+    specified ladder and peak model. If a directory is provided instead of specific file paths, all .fsa files within
+    the directory will be used. Peak detection is based on the specified peak model and other optional parameters,
+    such as minimum peak height and cutoff value.
 
     Example:
     --------
@@ -39,24 +39,21 @@ def generate_peak_table(
         in_files="my_folder", ladder="LIZ", peak_model="gauss"
     )
     """
-    
+
     if isinstance(in_files, str):
         in_files = [x for x in Path(in_files).iterdir() if x.suffix == ".fsa"]
-        
+
     peak_dfs = []
     for x in in_files:
         try:
             fsa = fraggler.FsaFile(
-                x,
-                ladder,
-                min_height=min_height,
-                trace_channel=trace_channel
+                x, ladder, min_height=min_height, trace_channel=trace_channel
             )
             pla = fraggler.PeakLadderAssigner(fsa)
             model = fraggler.FitLadderModel(pla)
             pam = fraggler.PeakAreaDeMultiplex(
                 model,
-                cutoff=cutoff, 
+                cutoff=cutoff,
                 min_ratio=min_ratio,
                 custom_peaks=custom_peaks,
             )

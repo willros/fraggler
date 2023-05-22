@@ -6,25 +6,24 @@ import logging
 
 import fraggler
 
+
 def setup_logging(outdir: str) -> None:
     """
     Set up the logging object and saves the log file to the same dir as the results files.
     """
     if not (outdir := Path(outdir)).exists():
         outdir.mkdir(parents=True)
-        
+
     LOG_FILE = f"{outdir}/fraggler.log"
 
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] \n%(message)s",
-        datefmt='%Y-%m-%d %I:%M:%S',
-        handlers=[
-            logging.FileHandler(LOG_FILE),
-            logging.StreamHandler()
-        ],
+        datefmt="%Y-%m-%d %I:%M:%S",
+        handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler()],
     )
-    
+
+
 def get_files(in_path: str) -> list[Path]:
     # If in_path is a directory, get a list of all .fsa files in it
     if Path(in_path).is_dir():
@@ -32,7 +31,7 @@ def get_files(in_path: str) -> list[Path]:
     else:
         files = [Path(in_path)]
     return files
-    
+
 
 def report(
     in_path: str,
@@ -50,7 +49,7 @@ def report(
     Generate a peak area report for all input files.
     """
 
-    # Logging 
+    # Logging
     setup_logging(out_folder)
     INFO = f"""
     Runned command:
@@ -69,10 +68,10 @@ def report(
         Custom Peaks: {custom_peaks}
     """
     logging.info(INFO)
-    
+
     # Files
     files = get_files(in_path)
-    
+
     # Generate a peak area report for each file
     failed_files = []
     for file in files:
@@ -91,17 +90,21 @@ def report(
                 custom_peaks=custom_peaks,
             )
         except Exception as e:
-            logging.error(f"""
+            logging.error(
+                f"""
             Not able to process file. Reason:
             {e}
-            """)
+            """
+            )
             failed_files.append(file.stem)
-    
+
     if failed_files:
         failed_files = "\n".join(failed_files)
-        logging.info(f"""Following files were not processed:
+        logging.info(
+            f"""Following files were not processed:
         {failed_files}
-        """)
+        """
+        )
 
 
 def peak_table(
@@ -120,7 +123,7 @@ def peak_table(
     """
     Generate a combined dataframe of peaks for all input files.
     """
-    # Logging 
+    # Logging
     setup_logging(out_folder)
     INFO = f"""
     Runned command:
@@ -140,10 +143,10 @@ def peak_table(
         Excel: {excel}
     """
     logging.info(INFO)
-    
+
     # Files
     files = get_files(in_path)
-    
+
     peak_dfs = []
     failed_files = []
     for file in files:
@@ -169,12 +172,14 @@ def peak_table(
             logging.error(f"Following file did not work: {file}")
             logging.error(f"Reason: {e}")
             failed_files.append(file.stem)
-            
+
     if failed_files:
         failed_files = "\n".join(failed_files)
-        logging.info(f"""Following files were not processed:
+        logging.info(
+            f"""Following files were not processed:
         {failed_files}
-        """)
+        """
+        )
 
     # Combine peak dataframes into a single dataframe
     df = pd.concat(peak_dfs).reset_index(drop=True)
