@@ -15,8 +15,9 @@ Fraggler is a Python package that provides functionality for analyzing and gener
 
 ## Install
 
+Via pip:
 ```bash
-git clone git@github.com:willros/ladder_map.git && cd ladder_map
+git clone https://github.com/willros/fraggler.git  && cd fraggler
 pip install .
 ```
 Or via conda:
