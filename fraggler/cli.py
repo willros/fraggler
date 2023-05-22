@@ -97,10 +97,11 @@ def report(
             """)
             failed_files.append(file.stem)
     
-    failed_files = "\n".join(failed_files)
-    logging.info(f"""Following files were not processed:
-    {failed_files}
-    """)
+    if failed_files:
+        failed_files = "\n".join(failed_files)
+        logging.info(f"""Following files were not processed:
+        {failed_files}
+        """)
 
 
 def peak_table(
@@ -169,10 +170,11 @@ def peak_table(
             logging.error(f"Reason: {e}")
             failed_files.append(file.stem)
             
-    failed_files = "\n".join(failed_files)
-    logging.info(f"""Following files were not processed:
-    {failed_files}
-    """)
+    if failed_files:
+        failed_files = "\n".join(failed_files)
+        logging.info(f"""Following files were not processed:
+        {failed_files}
+        """)
 
     # Combine peak dataframes into a single dataframe
     df = pd.concat(peak_dfs).reset_index(drop=True)

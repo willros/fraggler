@@ -18,9 +18,8 @@ setup(
         "lmfit",
         "scipy",
         "biopython",
-        "panel",
+        "panel==0.14.2",
         "fire",
     ],
-    #packages=setuptools.find_packages(exclude=["dist", "build", "*.egg-info", "tests"]),
     entry_points={"console_scripts": ["fraggler=fraggler.cli:run"]},
 )
