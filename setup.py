@@ -18,6 +18,7 @@ setup(
         "lmfit",
         "scipy",
         "biopython",
+        "panel",
         "fire",
     ],
     #packages=setuptools.find_packages(exclude=["dist", "build", "*.egg-info", "tests"]),
