@@ -12,7 +12,7 @@ class FsaFile:
         file: str,
         ladder: str,
         normalize: bool = False,
-        trace_channel: str = "DATA1",
+        trace_channel: str = "DATA9",
         size_standard_channel: str = None,
         min_interpeak_distance: int = None,
         min_height: int = None,

@@ -87,8 +87,6 @@ class PeakAreaDeMultiplexIterator:
             return result
 
 
-# TOD# TODO
-# Fit peak model with x == time instead of x == bp?
 class PeakAreaDeMultiplex:
     """
     Class for finding peak areas and quotients of peaks in a given data set.

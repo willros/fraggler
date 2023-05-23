@@ -209,10 +209,8 @@ def peak_area_report(
     peak_model: str,
     min_interpeak_distance: int = 30,
     min_height: int = 100,
-    min_ratio: float = 0.1,
-    # changed to DATA9
+    min_ratio: float = 0.2,
     trace_channel: str = "DATA9",
-    search_peaks_start: int = 100,
     cutoff: float = None,
     peak_height: int = 200,
     custom_peaks: str = None,
@@ -264,7 +262,6 @@ def peak_area_report(
     peak_areas = fraggler.PeakAreaDeMultiplex(
         model,
         min_ratio=min_ratio,
-        search_peaks_start=search_peaks_start,
         cutoff=cutoff,
         peak_height=peak_height,
         custom_peaks=custom_peaks,

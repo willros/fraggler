@@ -20,6 +20,7 @@ setup(
         "biopython",
         "panel==0.14.2",
         "fire",
+        "openpyxl",
     ],
     entry_points={"console_scripts": ["fraggler=fraggler.cli:run"]},
 )
