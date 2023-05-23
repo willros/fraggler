@@ -3,9 +3,11 @@ import pandas as pd
 from pathlib import Path
 import sys
 import logging
+from datetime import datetime
 
 import fraggler
 
+NOW = datetime.now().strftime("%Y-%m-%d_%H:%M")
 
 def setup_logging(outdir: str) -> None:
     """
@@ -14,7 +16,7 @@ def setup_logging(outdir: str) -> None:
     if not (outdir := Path(outdir)).exists():
         outdir.mkdir(parents=True)
 
-    LOG_FILE = f"{outdir}/fraggler.log"
+    LOG_FILE = f"{outdir}/fraggler_{NOW}.log"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -109,7 +111,7 @@ def report(
 
 def peak_table(
     in_path: str,
-    out_name: str,
+    out_folder: str = ".",
     ladder: str = "LIZ",
     peak_model: str = "gauss",
     min_height: int = 100,
@@ -184,7 +186,8 @@ def peak_table(
     # Combine peak dataframes into a single dataframe
     df = pd.concat(peak_dfs).reset_index(drop=True)
 
-    # Save combined dataframe as a CSV file
+    # Save 
+    out_name = f"{out_folder}/fraggler_{Path(in_path).parts[-1]}"
     if excel:
         df.to_excel(f"{out_name}.xlsx", index=False)
     else:
