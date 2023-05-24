@@ -12,7 +12,7 @@ class FsaFile:
         file: str,
         ladder: str,
         normalize: bool = False,
-        trace_channel: str = "DATA9",
+        trace_channel: str = "DATA1",
         size_standard_channel: str = None,
         min_interpeak_distance: int = None,
         min_height: int = None,
@@ -69,7 +69,7 @@ class FsaFile:
             self.size_standard = np.array(self.fsa[self.size_standard_channel])
             self.trace = np.array(self.fsa[trace_channel])
 
-    def __repr__(self):
+    def __str__(self):
         """
         Returns a string representation of the FsaFile object.
 

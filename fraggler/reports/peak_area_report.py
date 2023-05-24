@@ -36,12 +36,8 @@ def header(
     )
 
 
-def generate_peak_area_no_peaks(name, date, plot_raw):
-    """
-    Docstring
-    """
-
-    head = header(
+def make_header(name: str, date: str) -> pn.pane.Markdown:
+    return header(
         text=f"""
         # Fragment Analysis Report
         ## Report of {name}
@@ -51,6 +47,11 @@ def generate_peak_area_no_peaks(name, date, plot_raw):
         bg_color="#03a1fc",
         height=250,
     )
+
+
+def generate_peak_area_no_peaks(name, date, plot_raw):
+
+    head = make_header(name, date)
 
     no_peaks_markdown = header(
         "# No peaks could be generated. Please look at the raw data.", height=100
@@ -73,16 +74,8 @@ def generate_peak_area_report(
     peak_area,
 ):
     ### ----- HEADER ----- ###
-    head = header(
-        text=f"""
-        # Fragment Analysis Report
-        ## Report of {name} 
-        ## Date: {date}
-        """,
-        fontsize="20px",
-        bg_color="#03a1fc",
-        height=250,
-    )
+    head = make_header(name, date)
+
     ### ----- Raw Data ----- ###
 
     # Header for this section
@@ -203,78 +196,23 @@ def generate_peak_area_report(
 
 
 def peak_area_report(
-    fsa_file: str,
-    ladder: str,
-    folder: str,
-    peak_model: str,
-    min_interpeak_distance: int = 30,
-    min_height: int = 100,
-    min_ratio: float = 0.2,
-    trace_channel: str = "DATA9",
-    cutoff: float = None,
-    peak_height: int = 200,
-    custom_peaks: str = None,
+    fraggler_object: fraggler.Fraggler,
+    outpath: str,
+    peak_model: str = "gauss",
 ) -> int:
-    """
-    Generates an HTML report for the fragment analysis of an FSA file, including peak area data and plots.
+    # meta information
+    file_name = fraggler_object.fsa.file_name
+    date = fraggler_object.fsa.fsa["RUND1"]
 
-    Parameters:
-    -----------
-    fsa_file : str
-        The path to the FSA file to be analyzed.
-    ladder : str
-        The name of the ladder used in the FSA file.
-    folder : str
-        The path to the output folder where the report will be saved.
-    peak_model : str
-        The peak finding model used to identify peaks.
+    raw_plots = fraggler.PlotRawData(fraggler_object.fsa)
 
-    Returns:
-    --------
-    int
-        An integer representing the status of the report generation:
-        - 0 if successful
-        - 1 if no peaks were found
-
-    Raises:
-    -------
-    FileNotFoundError
-        If the specified FSA file cannot be found.
-    IOError
-        If the report file cannot be saved.
-    """
-    # FSA File and FsaFile Object
-    fsa = fraggler.FsaFile(
-        fsa_file,
-        ladder,
-        min_height=min_height,
-        trace_channel=trace_channel,
-        min_interpeak_distance=min_interpeak_distance,
-    )
-    file_name = fsa.file_name
-    date = fsa.fsa["RUND1"]
-
-    # LadderAssigner, Model and PeakArea
-    ladder_assigner = fraggler.PeakLadderAssigner(fsa)
-    model = fraggler.FitLadderModel(ladder_assigner)
-    raw_plots = fraggler.PlotRawData(fsa)
-    ladder_plots = fraggler.PlotLadder(model)
-    peak_areas = fraggler.PeakAreaDeMultiplex(
-        model,
-        min_ratio=min_ratio,
-        cutoff=cutoff,
-        peak_height=peak_height,
-        custom_peaks=custom_peaks,
-    )
-    peak_plots = fraggler.PlotPeakArea(peak_areas)
-
-    # create the output folder if it doesn't exist
-    outpath = Path(folder)
+    # Generate the report
+    outpath = Path(outpath)
     if not outpath.exists():
         outpath.mkdir(parents=True)
 
-    # If no peaks could be found
-    if not peak_areas.found_peaks:
+    # If no peaks
+    if not fraggler_object.peak_areas.found_peaks:
         outname = outpath / f"FAILED-fragment_analysis-report-{file_name}-{date}.html"
         generate_peak_area_no_peaks(file_name, date, raw_plots).save(
             outname, title=file_name
@@ -283,6 +221,9 @@ def peak_area_report(
         return 1
 
     # If peaks
+    ladder_plots = fraggler.PlotLadder(fraggler_object.model)
+    peak_plots = fraggler.PlotPeakArea(fraggler_object.peak_areas)
+
     outname = outpath / f"fragment_analysis-report-{file_name}-{date}.html"
     generate_peak_area_report(
         file_name,
@@ -291,7 +232,7 @@ def peak_area_report(
         raw_plots,
         ladder_plots,
         peak_plots,
-        peak_areas,
+        fraggler_object.peak_areas,
     ).save(
         outname,
         title=file_name,

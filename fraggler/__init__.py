@@ -1,6 +1,6 @@
 """
 fraggler.
-Easy Fragment Analyzing for python!
+Easy Fragment Analyzing in python!
 """
 
 __author__ = "William Rosenbaum and Pär Larsson"
@@ -11,6 +11,8 @@ from .ladders.ladders import LADDERS
 from .plotting.plot_ladder import PlotLadder
 from .utils.baseline_removal import baseline_arPLS
 from .utils.fsa_file import FsaFile
+from .utils.utils import get_files, setup_logging
+from .utils.fraggler_object import Fraggler, make_fraggler_object
 from .applications.peak_area_multiplex import PeakAreaDeMultiplex
 from .plotting.plot_peak_area import PlotPeakArea
 from .plotting.plot_raw_data import PlotRawData
@@ -26,9 +28,13 @@ __all__ = [
     "baseline_arPLS",
     "FsaFile",
     "PeakArea",
-    "PeakAreaDemultiplex",
+    "PeakAreaDeMultiplex",
     "PlotPeakArea",
     "PlotRawData",
     "generate_peak_table",
     "peak_area_report",
+    "Fraggler",
+    "make_fraggler_object",
+    "get_files",
+    "setup_logging",
 ]
