@@ -17,7 +17,8 @@ Fraggler is a Python package that provides functionality for analyzing and gener
 
 Via pip:
 ```bash
-git clone https://github.com/willros/fraggler.git  && cd fraggler
+git clone https://github.com/willros/fraggler.git
+cd fraggler
 pip install .
 ```
 Or via conda:
@@ -30,19 +31,23 @@ conda install -c bioconda fraggler
 To get an overview how the library can be used in a python environment, please look at `tutorial.ipynb`.
 
 
-## CLI Tool Example Usage:
-### Fraggler report
+## CLI Tool
+### Fraggler analyze
 
 #### Usage
-To generate a peak area report for all input files, use the fraggler report command followed by the required positional arguments and any optional flags.
+To generate peak area reports and a peak table for all input files, use the `fraggler analyze` command followed by the required positional arguments and any optional flags.
 
+- If not specified, fraggler finds peaks agnostic in the `fsa file`. To specifiy custom assays with certain peaks and intervals, the user can add a .csv file to the `--custom_peaks` argument. The csv file MUST have the following shape:
+
+| name | start | stop | amount |
+|---|---|---|---|
+| prt1 | 140 | 150 | 2 |
+
+If `amount` if left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height.
 
 ```console
-fraggler report IN_PATH OUT_FOLDER <flags>
+fraggler analyze IN_PATH OUT_FOLDER <flags>
 ```
-#### Description
-The fraggler report command generates a peak area report for all input files.
-
 
 #### Positional Arguments
 The following positional arguments are required:
@@ -61,60 +66,11 @@ The following flags can be used with the `fraggler report` command:
 - `-t, --trace_channel=TRACE_CHANNEL`: Type `str`. Specifies the trace channel. Default value: 'DATA9'.
 - `--peak_height=PEAK_HEIGHT`: Type `int`. Specifies the peak height. Default value: 200.
 - `--custom_peaks=CUSTOM_PEAKS`: Type `Optional[str]`. Specifies custom peaks. Default value: None.
+- `-e, --excel=EXCEL`: Type: `bool`, Default: True
 
 #### Typical usage
 ```console
-fraggler report folder report_folder --min_height=30 -t=DATA1 
-```
-
-### Fraggler peak_table
-
-#### Usage
-
-This project provides a command-line tool, `fraggler peak_table`, that generates a combined dataframe of peaks for all input files.
-
-```console
-fraggler peak_table IN_PATH OUT_NAME <flags>
-```
-#### Description
-The fraggler peak_table command generates a combined peak_table for all input files.
-
-- If not specified, fraggler finds peaks agnostic in the `fsa file`. To specifiy custom assays with certain peaks and intervals, the user can add a .csv file to the `--custom_peaks` argument. The csv file MUST have the following shape:
-
-| name | start | stop | amount |
-|---|---|---|---|
-| prt1 | 140 | 150 | 2 |
-
-If `amount` if left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height.
-
-#### Positional Arguments
-The following positional arguments are required:
-
-- `IN_PATH`: Type: `str`
-- `OUT_NAME`: Type: `str`
-
-#### Flags
-The following flags can be used with the `fraggler peak_table` command:
-
-- `-l, --ladder=LADDER`: Type: `str`, Default: 'LIZ'
-- `--peak_model=PEAK_MODEL`: Type: `str`, Default: 'gauss'
-- `--min_height=MIN_HEIGHT`: Type: `int`, Default: 100
-- `--cutoff=CUTOFF`: Type: `int`, Default: 175
-- `--min_ratio=MIN_RATIO`: Type: `float`, Default: 0.3
-- `-t, --trace_channel=TRACE_CHANNEL`: Type: `str`, Default: 'DATA9'
-- `--peak_height=PEAK_HEIGHT`: Type: `int`, Default: 200
-- `--custom_peaks=CUSTOM_PEAKS`: Type: `Optional[str]`, Default: None
-- `-e, --excel=EXCEL`: Type: `bool`, Default: False
-
-#### Typical usage
-```console
-fraggler peak_table \
-fsa_folder \
-out_file \
---min_height=30 \
--t=DATA1 \
---excel=True \
---custom_peaks=peaks.csv 
+fraggler analyze IN_FOLDER OUT_FOLDER --min_ratio=0.2 -e=False
 ```
 
 
