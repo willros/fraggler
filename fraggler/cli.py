@@ -6,6 +6,15 @@ import logging
 
 import fraggler
 
+ASCII_ART = """
+ / _|                      | |
+ | |_ _ __ __ _  __ _  __ _| | ___ _ __
+ |  _| '__/ _` |/ _` |/ _` | |/ _ \ '__|
+ | | | | | (_| | (_| | (_| | |  __/ |
+ |_| |_|  \__,_|\__, |\__, |_|\___|_|
+                 __/ | __/ |
+                |___/ |___/
+"""
 
 def analyze(
     in_path: str,
@@ -20,6 +29,7 @@ def analyze(
     custom_peaks: str = None,
     excel: bool = True,
 ) -> None:
+    print(ASCII_ART)
 
     # Logging
     fraggler.setup_logging(out_folder)
