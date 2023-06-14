@@ -3,20 +3,22 @@ import pandas as pd
 from pathlib import Path
 import sys
 import logging
-
+from colorama import Fore as f, init
 import fraggler
 
-ASCII_ART = """
- █████▒██▀███   ▄▄▄        ▄████   ▄████  ██▓    ▓█████  ██▀███
-▓██   ▒▓██ ▒ ██▒▒████▄     ██▒ ▀█▒ ██▒ ▀█▒▓██▒    ▓█   ▀ ▓██ ▒ ██▒
-▒████ ░▓██ ░▄█ ▒▒██  ▀█▄  ▒██░▄▄▄░▒██░▄▄▄░▒██░    ▒███   ▓██ ░▄█ ▒
-░▓█▒  ░▒██▀▀█▄  ░██▄▄▄▄██ ░▓█  ██▓░▓█  ██▓▒██░    ▒▓█  ▄ ▒██▀▀█▄
-░▒█░   ░██▓ ▒██▒ ▓█   ▓██▒░▒▓███▀▒░▒▓███▀▒░██████▒░▒████▒░██▓ ▒██▒
- ▒ ░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░ ░▒   ▒  ░▒   ▒ ░ ▒░▓  ░░░ ▒░ ░░ ▒▓ ░▒▓░
- ░       ░▒ ░ ▒░  ▒   ▒▒ ░  ░   ░   ░   ░ ░ ░ ▒  ░ ░ ░  ░  ░▒ ░ ▒░
- ░ ░     ░░   ░   ░   ▒   ░ ░   ░ ░ ░   ░   ░ ░      ░     ░░   ░
-          ░           ░  ░      ░       ░     ░  ░   ░  ░   ░
+init(autoreset=True)
 
+
+ASCII_ART = f"""{f.RED}
+            █████▒██▀███   ▄▄▄        ▄████   ▄████  ██▓    ▓█████  ██▀███
+          ▓██   ▒▓██ ▒ ██▒▒████▄     ██▒ ▀█▒ ██▒ ▀█▒▓██▒    ▓█   ▀ ▓██ ▒ ██▒
+          ▒████ ░▓██ ░▄█ ▒▒██  ▀█▄  ▒██░▄▄▄░▒██░▄▄▄░▒██░    ▒███   ▓██ ░▄█ ▒
+          ░▓█▒  ░▒██▀▀█▄  ░██▄▄▄▄██ ░▓█  ██▓░▓█  ██▓▒██░    ▒▓█  ▄ ▒██▀▀█▄
+          ░▒█░   ░██▓ ▒██▒ ▓█   ▓██▒░▒▓███▀▒░▒▓███▀▒░██████▒░▒████▒░██▓ ▒██▒
+           ▒ ░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░ ░▒   ▒  ░▒   ▒ ░ ▒░▓  ░░░ ▒░ ░░ ▒▓ ░▒▓░
+           ░       ░▒ ░ ▒░  ▒   ▒▒ ░  ░   ░   ░   ░ ░ ░ ▒  ░ ░ ░  ░  ░▒ ░ ▒░
+           ░ ░     ░░   ░   ░   ▒   ░ ░   ░ ░ ░   ░   ░ ░      ░     ░░   ░
+                    ░           ░  ░      ░       ░     ░  ░   ░  ░   ░
 """
 
 def analyze(
@@ -104,10 +106,10 @@ def analyze(
     Following files were not analyzed:""")
     if failed_files:
         failed_files = "\n".join(failed_files)
-        logging.warning(f"Failed: {failed_files}")
+        logging.warning(f"{f.RED}Failed: {failed_files}")
     if no_peaks:
         no_peaks = "\n".join(no_peaks)
-        logging.warning(f"No peaks: {no_peaks}")
+        logging.warning(f"{f.RED}No peaks: {no_peaks}")
 
 
 def run():

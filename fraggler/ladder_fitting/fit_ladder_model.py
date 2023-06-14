@@ -16,6 +16,9 @@ from fraggler.utils.fsa_file import FsaFile
 class ModelFittingError(Exception):
     pass
 
+class LadderNotFoundError(Exception):
+    pass
+
 
 class FitLadderModel:
     def __init__(self, ladder_assigner: PeakLadderAssigner) -> None:
@@ -46,13 +49,13 @@ class FitLadderModel:
         Returns:
             None.
         """
-        match self.fsa_file.ladder:
-            case "ROX":
-                self._fit_ROX_ladder()
-            case "LIZ":
-                self._fit_LIZ_ladder()
-            case _:
-                print("Ladder not found")
+        ladder = self.fsa_file.ladder
+        if ladder == "ROX":
+            self._fit_ROX_ladder()
+        elif ladder == "LIZ":
+            self._fit_LIZ_ladder()
+        else:
+            raise LadderNotFoundError(f"'{ladder}' is not a valid ladder")
 
     def model_score(self) -> tuple[float, float]:
         """
