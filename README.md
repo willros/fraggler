@@ -56,7 +56,7 @@ The following positional arguments are required:
 - `OUT_FOLDER`: Type `str`. Specifies the output folder.
 
 #### Flags
-The following flags can be used with the `fraggler report` command:
+The following flags can be used with the `fraggler analyze` command:
 
 - `-l, --ladder=LADDER`: Type `str`. Specifies the ladder. Default value: 'LIZ'.
 - `--peak_model=PEAK_MODEL`: Type `str`. Specifies the peak model. Default value: 'gauss'.
