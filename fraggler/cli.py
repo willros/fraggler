@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import logging
 from colorama import Fore as f, init
+import matplotlib
 import warnings
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
