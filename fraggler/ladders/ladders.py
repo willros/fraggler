@@ -75,6 +75,37 @@ LADDERS = {
         "distance": 30,
         "height": 100,
         "max_ladder_trace_distance": 600,
-        "channel": "DATA12",
+        "channel": "DATA4",
     },
+    "ORANGE": {
+        "sizes": np.array(
+            [
+                73,
+                88,
+                123,
+                148,
+                173,
+                198,
+                223,
+                248,
+                273,
+                298,
+                324,
+                349,
+                373,
+                398,
+                423,
+                448,
+                470,
+                495,
+                520,
+                545,
+                555,
+            ]
+        ),
+        "distance": 30,
+        "height": 100,
+        "max_ladder_trace_distance": 300,
+        "channel": "DATA205",
+    }
 }

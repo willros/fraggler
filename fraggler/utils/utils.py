@@ -29,3 +29,5 @@ def setup_logging(outdir: str) -> None:
         datefmt="%Y-%m-%d %I:%M:%S",
         handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler()],
     )
+
+

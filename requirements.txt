@@ -8,3 +8,4 @@ scikit-learn
 lmfit
 panel
 fire
+altair

@@ -32,10 +32,10 @@ To get an overview how the library can be used in a python environment, please l
 
 
 ## CLI Tool
-### Fraggler analyze
+### `fraggler area` and `fraggler peak`
 
 #### Usage
-To generate peak area reports and a peak table for all input files, use the `fraggler analyze` command followed by the required positional arguments and any optional flags.
+To generate peak area reports and a peak table for all input files, use the `fraggler area` or `fraggler peak` command followed by the required positional arguments and any optional flags.
 
 - If not specified, fraggler finds peaks agnostic in the `fsa file`. To specifiy custom assays with certain peaks and intervals, the user can add a .csv file to the `--custom_peaks` argument. The csv file MUST have the following shape:
 
@@ -46,7 +46,7 @@ To generate peak area reports and a peak table for all input files, use the `fra
 If `amount` if left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height.
 
 ```console
-fraggler analyze IN_PATH OUT_FOLDER <flags>
+fraggler peak IN_PATH OUT_FOLDER --ladder LIZ <flags>
 ```
 
 #### Positional Arguments
@@ -54,9 +54,10 @@ The following positional arguments are required:
 
 - `IN_PATH`: Type `str`. Specifies the input path.
 - `OUT_FOLDER`: Type `str`. Specifies the output folder.
+- `LADDER`: Type `str`. Specifies the ladder used in the experiment.
 
 #### Flags
-The following flags can be used with the `fraggler analyze` command:
+The following flags can be used with the `fraggler peak` or `fraggler area` command:
 
 - `-l, --ladder=LADDER`: Type `str`. Specifies the ladder. Default value: 'LIZ'.
 - `--peak_model=PEAK_MODEL`: Type `str`. Specifies the peak model. Default value: 'gauss'.
@@ -70,7 +71,7 @@ The following flags can be used with the `fraggler analyze` command:
 
 #### Typical usage
 ```console
-fraggler analyze IN_FOLDER OUT_FOLDER --min_ratio=0.2 -e=False
+fraggler peak IN_FOLDER OUT_FOLDER ORANGE --min_ratio=0.2 
 ```
 
 

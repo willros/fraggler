@@ -7,35 +7,6 @@ class PlotPeakArea:
     def __init__(self, peak_area: PeakAreaDeMultiplex):
         self.peak_area = peak_area
 
-    def plot_peaks(self):
-        fig_peaks = plt.figure(figsize=(20, 10))
-
-        df = self.peak_area.peaks_dataframe.loc[
-            lambda x: x.basepairs > self.peak_area.peak_information.basepairs.min() - 10
-        ].loc[
-            lambda x: x.basepairs < self.peak_area.peak_information.basepairs.max() + 10
-        ]
-
-        plt.plot(df.basepairs, df.peaks)
-        plt.plot(
-            self.peak_area.peak_information.basepairs,
-            self.peak_area.peak_information.peaks,
-            "o",
-        )
-        for x, y in zip(
-            self.peak_area.peak_information.basepairs,
-            self.peak_area.peak_information.peaks,
-        ):
-            plt.text(x, y, f"{round(x, 1)} bp")
-
-        plt.xticks(np.arange(df.basepairs.min(), df.basepairs.max(), 10), rotation=90)
-        plt.ylabel("intensity")
-        plt.xlabel("basepairs")
-        plt.grid()
-        plt.close()
-
-        return fig_peaks
-
     def plot_areas(self, peak_finding_model: str, assay_number: int):
 
         self.peak_area.fit_assay_peaks(peak_finding_model, assay_number)

@@ -130,9 +130,19 @@ class PeakLadderAssigner:
 
         # Get end nodes that have zero out-degree
         end_nodes = [node for node in graph.nodes if graph.out_degree(node) == 0]
+        if len(start_nodes) == 0 or len(end_nodes) == 0:
+            raise ValueError("Graph does not have start or end nodes")
 
         # Get all simple paths from start node to end node
-        all_paths = list(nx.all_simple_paths(graph, start_nodes[0], end_nodes[0]))
+        all_paths = []
+        for start_node in start_nodes:
+            for end_node in end_nodes:
+                paths = nx.all_simple_paths(graph, start_node, end_node)
+                all_paths.extend(paths)
+                
+        if len(all_paths) == 0:
+            raise ValueError("No paths found from start to end nodes")
+
 
         # Generate combinations of nodes that satisfy certain conditions
         for p_arr in all_paths:
@@ -163,15 +173,21 @@ class PeakLadderAssigner:
             df["score"] = np.vectorize(self._max_spline_second_derivative_score)(
                 df["combination"]
             )
+    
+        if method == "first_derivative":
+            df["score"] = np.vectorize(self._max_first_derivative_score)(
+                df["combination"]
+            )
 
-            # Sort the dataframe by score in ascending order
-            df = df.sort_values(by="score", ascending=True)
+        # Sort the dataframe by score in ascending order
+        df = df.sort_values(by="score", ascending=True)
 
-            # Get the best combination (i.e., the one with the lowest score)
-            best = df.head(1)
+        # Get the best combination (i.e., the one with the lowest score)
+        best = df.head(1)
 
-            # Return the best combination as a numpy array
-            return best.combination.squeeze()
+        # Return the best combination as a numpy array
+        return best.combination.squeeze()
+        
 
     @staticmethod
     def _polynomial_model_inv_r2_score(ladder: np.array, comb: np.array) -> float:
