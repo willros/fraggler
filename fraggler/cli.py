@@ -5,13 +5,15 @@ import sys
 import logging
 from colorama import Fore as f, init
 import warnings
-
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
 import fraggler
 
 # from colorama
 init(autoreset=True)
+
+#for windows user
+matplotlib.use('agg')
 
 
 ASCII_ART = f"""{f.RED}
