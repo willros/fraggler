@@ -38,7 +38,7 @@ def save_df_format(
 ) -> None:
     # Save dataframe
     df = pd.concat(peak_dfs).reset_index(drop=True)
-    out_name = f"{out_folder}/areatable_{Path(in_path).parts[-1]}"
+    out_name = f"{out_folder}/areatable_{Path(in_path).resolve().parts[-1]}"
     if out_format == "excel":
         df.to_excel(f"{out_name}.xlsx", index=False)
     elif out_format == "csv":
