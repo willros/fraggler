@@ -17,7 +17,7 @@ def make_fsa_data_df(fsa, ladder: bool = False) -> pd.DataFrame:
     return pd.concat(dfs)
 
 
-def plot_fsa_data(fsa: str, ladder: bool = False) -> alt.vegalite.v4.api.Chart:
+def plot_fsa_data(fsa: str, ladder: bool = False) -> list:
     alt.data_transformers.disable_max_rows()
     df = make_fsa_data_df(fsa, ladder)
 
