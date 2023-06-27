@@ -2,6 +2,7 @@
 ![logo](examples/logo.png)
 
 ## Description
+Fraggler is for fragment analysis in Python!
 Fraggler is a Python package that provides functionality for analyzing and generating reports for fsa files. It offers both a Python API and a command-line tool for ease of use.
 
 ----------------
