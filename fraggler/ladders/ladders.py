@@ -107,5 +107,5 @@ LADDERS = {
         "height": 100,
         "max_ladder_trace_distance": 300,
         "channel": "DATA205",
-    }
+    },
 }

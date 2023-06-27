@@ -139,10 +139,9 @@ class PeakLadderAssigner:
             for end_node in end_nodes:
                 paths = nx.all_simple_paths(graph, start_node, end_node)
                 all_paths.extend(paths)
-                
+
         if len(all_paths) == 0:
             raise ValueError("No paths found from start to end nodes")
-
 
         # Generate combinations of nodes that satisfy certain conditions
         for p_arr in all_paths:
@@ -173,7 +172,7 @@ class PeakLadderAssigner:
             df["score"] = np.vectorize(self._max_spline_second_derivative_score)(
                 df["combination"]
             )
-    
+
         if method == "first_derivative":
             df["score"] = np.vectorize(self._max_first_derivative_score)(
                 df["combination"]
@@ -187,7 +186,6 @@ class PeakLadderAssigner:
 
         # Return the best combination as a numpy array
         return best.combination.squeeze()
-        
 
     @staticmethod
     def _polynomial_model_inv_r2_score(ladder: np.array, comb: np.array) -> float:

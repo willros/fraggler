@@ -6,6 +6,7 @@ import logging
 from colorama import Fore as f, init
 import matplotlib
 import warnings
+
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
 import fraggler
@@ -13,8 +14,8 @@ import fraggler
 # from colorama
 init(autoreset=True)
 
-#for windows user
-matplotlib.use('agg')
+# for windows user
+matplotlib.use("agg")
 
 
 ASCII_ART = f"""{f.RED}
@@ -28,6 +29,24 @@ ASCII_ART = f"""{f.RED}
            ░ ░     ░░   ░   ░   ▒   ░ ░   ░ ░ ░   ░   ░ ░      ░     ░░   ░
                     ░           ░  ░      ░       ░     ░  ░   ░  ░   ░
 """
+
+def save_df_format(
+    peak_dfs: list,
+    out_folder: str,
+    in_path: str,
+    out_format: str,
+) -> None:
+    # Save dataframe
+    df = pd.concat(peak_dfs).reset_index(drop=True)
+    out_name = f"{out_folder}/areatable_{Path(in_path).parts[-1]}"
+    if out_format == "excel":
+        df.to_excel(f"{out_name}.xlsx", index=False)
+    elif out_format == "csv":
+        df.to_csv(f"{out_name}.csv", index=False)
+    elif out_format == "json":
+        df.to_json(f"{out_name}.json")
+    else:
+        raise NotImplementedError("Choose between: csv, excel, json")
 
 
 def area_report(
@@ -43,7 +62,7 @@ def area_report(
     size_standard_channel: str | None = None,
     distance_between_assays: int = 15,
     custom_peaks: str = None,
-    excel: bool = True,
+    out_format: str = "excel",
 ) -> None:
 
     print(ASCII_ART)
@@ -65,7 +84,7 @@ def area_report(
         Trace channel: {channel}
         Peak Height: {peak_height}
         Custom Peaks: {custom_peaks}
-        Excel: {excel}
+        Out format: {out_format}
         Size standard channel: {size_standard_channel}
         Distance between assays: {distance_between_assays}
     """
@@ -119,12 +138,8 @@ def area_report(
 
     # Save dataframe
     if peak_dfs:
-        df = pd.concat(peak_dfs).reset_index(drop=True)
-        out_name = f"{out_folder}/areatable_{Path(in_path).parts[-1]}"
-        if excel:
-            df.to_excel(f"{out_name}.xlsx", index=False)
-        else:
-            df.to_csv(f"{out_name}.csv", index=False)
+        save_df_format(peak_dfs, out_folder, in_path, out_format)
+            
 
     # log failed files
     logging.info(f"Fraggler done for files in {in_path}!")
@@ -148,7 +163,7 @@ def peak_report(
     size_standard_channel: str | None = None,
     distance_between_assays: int = 15,
     custom_peaks: str = None,
-    excel: bool = True,
+    out_format: str = "excel",
 ) -> None:
 
     print(ASCII_ART)
@@ -168,7 +183,7 @@ def peak_report(
         Trace channel: {channel}
         Peak Height: {peak_height}
         Custom Peaks: {custom_peaks}
-        Excel: {excel}
+        Out format: {out_format}
         Size standard channel: {size_standard_channel}
         Distance between assays: {distance_between_assays}
     """
@@ -214,14 +229,11 @@ def peak_report(
             continue
 
         # add peaks to dataframe
-        df = (
-            fraggler_object.peaks.peak_information
-            .assign(file_name=fraggler_object.fsa.file_name)
-            [["file_name", "basepairs", "peaks"]]
-            .rename(columns={"peaks": "peak_height"})
-        )
+        df = fraggler_object.peaks.peak_information.assign(
+            file_name=fraggler_object.fsa.file_name
+        )[["file_name", "basepairs", "peaks"]].rename(columns={"peaks": "peak_height"})
         peak_dfs.append(df)
-        
+
         # generate report
         report = fraggler.generate_peak_report(fraggler_object)
         out_name = out_folder / f"{file.stem}_fraggler_peak.html"
@@ -229,13 +241,8 @@ def peak_report(
 
     # Save dataframe
     if peak_dfs:
-        df = pd.concat(peak_dfs).reset_index(drop=True)
-        out_name = f"{out_folder}/peaktable_{Path(in_path).parts[-1]}"
-        if excel:
-            df.to_excel(f"{out_name}.xlsx", index=False)
-        else:
-            df.to_csv(f"{out_name}.csv", index=False)
-            
+        save_df_format(peak_dfs, out_folder, in_path, out_format)
+
     # log failed files
     logging.info(f"Fraggler done for files in {in_path}!")
 

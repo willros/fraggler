@@ -1,6 +1,7 @@
 import pandas as pd
 import altair as alt
 
+
 def make_fsa_data_df(fsa, ladder: bool = False) -> pd.DataFrame:
     data = ["DATA1", "DATA2", "DATA3", "DATA4"]
     if ladder:

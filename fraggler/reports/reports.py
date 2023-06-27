@@ -120,8 +120,7 @@ def generate_peak_report(fraggler: FragglerPeak) -> pn.layout.base.Column:
         ladder_correlation_plot,
     )
     ladder_section = pn.Column(ladder_header, ladder_tab)
-    
-    
+
     ### ----- Peaks dataframe ----- ###
     dataframe_header = header(
         text=f"## Peaks Table",
@@ -130,12 +129,9 @@ def generate_peak_report(fraggler: FragglerPeak) -> pn.layout.base.Column:
         textalign="left",
     )
     # Create dataframe
-    df = (
-        fraggler.peaks.peak_information
-        .assign(file_name=fraggler.fsa.file_name)
-        [["file_name", "basepairs", "peaks"]]
-        .rename(columns={"peaks": "peak_height"})
-    )
+    df = fraggler.peaks.peak_information.assign(file_name=fraggler.fsa.file_name)[
+        ["file_name", "basepairs", "peaks"]
+    ].rename(columns={"peaks": "peak_height"})
     # DataFrame Tabulator
     peaks_df_tab = pn.widgets.Tabulator(
         df,
@@ -149,7 +145,6 @@ def generate_peak_report(fraggler: FragglerPeak) -> pn.layout.base.Column:
     # Section
     dataframe_tab = pn.Tabs(peaks_df_tab)
     dataframe_section = pn.Column(dataframe_header, dataframe_tab)
-
 
     ### CREATE REPORT ###
 
