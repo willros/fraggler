@@ -17,13 +17,7 @@ Fraggler is a Python package that provides functionality for analyzing and gener
 
 Via pip:
 ```bash
-git clone https://github.com/willros/fraggler.git
-cd fraggler
-pip install .
-```
-Or via conda:
-```
-conda install -c bioconda fraggler
+pip install fraggler
 ```
 
 ## Usage
