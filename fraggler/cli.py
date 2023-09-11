@@ -17,7 +17,6 @@ init(autoreset=True)
 # for windows user
 matplotlib.use("agg")
 
-
 ASCII_ART = f"""{f.RED}
             █████▒██▀███   ▄▄▄        ▄████   ▄████  ██▓    ▓█████  ██▀███
           ▓██   ▒▓██ ▒ ██▒▒████▄     ██▒ ▀█▒ ██▒ ▀█▒▓██▒    ▓█   ▀ ▓██ ▒ ██▒
@@ -29,6 +28,8 @@ ASCII_ART = f"""{f.RED}
            ░ ░     ░░   ░   ░   ▒   ░ ░   ░ ░ ░   ░   ░ ░      ░     ░░   ░
                     ░           ░  ░      ░       ░     ░  ░   ░  ░   ░
 """
+print(ASCII_ART)
+
 
 def save_df_format(
     peak_dfs: list,
@@ -139,7 +140,6 @@ def area_report(
     # Save dataframe
     if peak_dfs:
         save_df_format(peak_dfs, out_folder, in_path, out_format)
-            
 
     # log failed files
     logging.info(f"Fraggler done for files in {in_path}!")

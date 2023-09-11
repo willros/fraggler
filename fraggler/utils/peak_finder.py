@@ -41,7 +41,7 @@ def is_overlapping(df: pd.DataFrame) -> bool:
 
 
 def has_columns(df: pd.DataFrame) -> bool:
-    columns = set(["name", "start", "stop", "amount"])
+    columns = set(["name", "start", "stop", "amount", "min_ratio"])
     df_columns = set(df.columns)
 
     if len(columns) != len(df_columns):
@@ -177,6 +177,8 @@ class PeakFinder:
         self.peaks_dataframe = peaks_dataframe
         self.peak_information = peak_information
 
+    # TODO
+    # add ratio to thiss
     def find_peaks_customized(
         self,
         peak_height: int,
@@ -207,6 +209,9 @@ class PeakFinder:
                 df = (
                     df.assign(rank_peak=lambda x: x.peaks.rank(ascending=False))
                     .loc[lambda x: x.rank_peak <= assay.amount]
+                    .assign(max_peak=lambda x: x.peaks.max())
+                    .assign(ratio=lambda x: x.peaks / x.max_peak)
+                    .loc[lambda x: x.ratio > assay.min_ratio]
                     .drop(columns=["rank_peak"])
                 )
 

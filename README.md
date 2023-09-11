@@ -34,11 +34,11 @@ To generate peak area reports and a peak table for all input files, use the `fra
 
 - If not specified, fraggler finds peaks agnostic in the `fsa file`. To specifiy custom assays with certain peaks and intervals, the user can add a .csv file to the `--custom_peaks` argument. The csv file MUST have the following shape:
 
-| name | start | stop | amount |
+| name | start | stop | amount | min_ratio |
 |---|---|---|---|
-| prt1 | 140 | 150 | 2 |
+| prt1 | 140 | 150 | 2 | 0.2
 
-If `amount` if left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height.
+If `amount` or `min_ratio` are left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height. If `min_ratio` is set, only peaks with the a ratio of the `min_ratio` of the highest peak is included, *e.g.* if `min_ratio == .02`, only peaks with a height of 20 is included, if the highest peak is 100 units.
 
 ```console
 fraggler peak IN_PATH OUT_FOLDER --ladder LIZ <flags>
