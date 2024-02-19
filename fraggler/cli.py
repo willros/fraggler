@@ -70,6 +70,8 @@ def area_report(
 ) -> None:
 
     print(ASCII_ART)
+    if custom_peaks:
+        peak_height = 0
 
     # Logging
     fraggler.setup_logging(out_folder)
@@ -168,6 +170,9 @@ def peak_report(
     custom_peaks: str = None,
     out_format: str = "excel",
 ) -> None:
+    
+    if custom_peaks:
+        peak_height = 0
 
     print(ASCII_ART)
 

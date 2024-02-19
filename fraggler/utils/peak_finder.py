@@ -178,7 +178,7 @@ class PeakFinder:
         self.peak_information = peak_information
 
     # TODO
-    # add ratio to thiss
+    # add ratio to this
     def find_peaks_customized(
         self,
         peak_height: int,
