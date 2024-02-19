@@ -6,6 +6,8 @@ import logging
 from colorama import Fore as f, init
 import matplotlib
 import warnings
+import platform
+
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
@@ -15,7 +17,8 @@ import fraggler
 init(autoreset=True)
 
 # for windows user
-matplotlib.use("agg")
+if platform.system() == 'Windows':
+    matplotlib.use("agg")
 
 ASCII_ART = f"""{f.RED}
             █████▒██▀███   ▄▄▄        ▄████   ▄████  ██▓    ▓█████  ██▀███
