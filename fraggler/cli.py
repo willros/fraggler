@@ -8,8 +8,7 @@ import matplotlib
 import warnings
 import platform
 
-
-warnings.simplefilter(action="ignore", category=FutureWarning)
+warnings.filterwarnings("ignore")
 
 import fraggler
 
@@ -17,7 +16,7 @@ import fraggler
 init(autoreset=True)
 
 # for windows user
-if platform.system() == 'Windows':
+if platform.system() == "Windows":
     matplotlib.use("agg")
 
 ASCII_ART = f"""{f.RED}
@@ -170,7 +169,7 @@ def peak_report(
     custom_peaks: str = None,
     out_format: str = "excel",
 ) -> None:
-    
+
     if custom_peaks:
         peak_height = 0
 
