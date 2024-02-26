@@ -164,7 +164,7 @@ class PeakAreaDeMultiplex:
         # return the last peak divided by the mean of the peaks to the left of it
         self.quotient = areas[-1] / areas[:-1].mean()
 
-    def peak_position_area_dataframe(self, assay_number: int) -> pd.DataFrame:
+    def peak_position_area_dataframe(self, assay_number: int, name: str) -> pd.DataFrame:
         """
         Returns a DataFrame of each peak and its properties
         """
@@ -188,6 +188,7 @@ class PeakAreaDeMultiplex:
                 )
                 .drop_duplicates("peak_name")
                 .assign(file_name=self.file_name)
+                .assign(assay_name=name)
             )
             dataframes.append(df)
 
@@ -201,17 +202,24 @@ class PeakAreaDeMultiplex:
         self,
         peak_finding_model: str,
         assay_number: int,
+        name: str,
     ) -> None:
         """
         Runs fit_lmfit_model, calculate_quotient and peak_position_area_dataframe
         """
         self.fit_lmfit_model(peak_finding_model, assay_number)
         self.calculate_quotient()
-        self.peak_position_area_dataframe(assay_number)
+        self.peak_position_area_dataframe(assay_number, name)
         return self.assay_peak_area_df
 
     def assays_dataframe(self, peak_finding_model: str = "gauss"):
         dfs = []
         for i in self:
-            dfs.append(self.fit_assay_peaks(peak_finding_model, i))
-        return pd.concat(dfs, ignore_index=True)
+            if self.peaks.custom_peaks is not None:
+                name = self.peaks.custom_peaks.name.unique()[i]
+            else:
+                name = ""
+            dfs.append(self.fit_assay_peaks(peak_finding_model, i, name))
+        df = pd.concat(dfs, ignore_index=True)
+        self.final_df = df
+        return df

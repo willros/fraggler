@@ -9,7 +9,8 @@ class PlotPeakArea:
 
     def plot_areas(self, peak_finding_model: str, assay_number: int):
 
-        self.peak_area.fit_assay_peaks(peak_finding_model, assay_number)
+        # TODO: this functions get called again here...
+        self.peak_area.fit_assay_peaks(peak_finding_model, assay_number, name="")
 
         fig_areas, axs = plt.subplots(
             1, len(self.peak_area.fit_df), sharey=True, figsize=(20, 10)

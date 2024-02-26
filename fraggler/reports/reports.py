@@ -130,7 +130,7 @@ def generate_peak_report(fraggler: FragglerPeak) -> pn.layout.base.Column:
     )
     # Create dataframe
     df = fraggler.peaks.peak_information.assign(file_name=fraggler.fsa.file_name)[
-        ["file_name", "basepairs", "peaks"]
+        ["file_name", "basepairs", "peaks", "assay_name"]
     ].rename(columns={"peaks": "peak_height"})
     # DataFrame Tabulator
     peaks_df_tab = pn.widgets.Tabulator(
@@ -258,7 +258,10 @@ def generate_area_report(
         textalign="left",
     )
     # Create dataframe
-    df = fraggler.areas.assays_dataframe(peak_model)
+    # --- old ---
+    # df = fraggler.areas.assays_dataframe(peak_model)
+    # --- old ---
+    df = fraggler.areas.final_df
 
     # DataFrame Tabulator
     peaks_df_tab = pn.widgets.Tabulator(

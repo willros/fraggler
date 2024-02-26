@@ -30,8 +30,6 @@ ASCII_ART = f"""{f.RED}
            ░ ░     ░░   ░   ░   ▒   ░ ░   ░ ░ ░   ░   ░ ░      ░     ░░   ░
                     ░           ░  ░      ░       ░     ░  ░   ░  ░   ░
 """
-print(ASCII_ART)
-
 
 def save_df_format(
     peak_dfs: list,
