@@ -1,4 +1,5 @@
-from fraggler.applications.peak_area_multiplex import PeakAreaDeMultiplex
+from fraggler import PeakAreaDeMultiplex
+
 import matplotlib.pyplot as plt
 import numpy as np
 
