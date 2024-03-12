@@ -41,7 +41,7 @@ def is_overlapping(df: pd.DataFrame) -> bool:
 
 
 def has_columns(df: pd.DataFrame) -> bool:
-    columns = set(["name", "start", "stop", "amount", "min_ratio"])
+    columns = set(["name", "start", "stop", "amount", "min_ratio", "which"])
     df_columns = set(df.columns)
 
     if len(columns) != len(df_columns):
@@ -177,8 +177,6 @@ class PeakFinder:
         self.peaks_dataframe = peaks_dataframe
         self.peak_information = peak_information
 
-    # TODO
-    # add ratio to this
     def find_peaks_customized(
         self,
         peak_height: int,
@@ -206,14 +204,26 @@ class PeakFinder:
 
             # Rank the peaks by height and filter out the smallest ones
             if assay.amount != 0:
-                df = (
-                    df.assign(rank_peak=lambda x: x.peaks.rank(ascending=False))
-                    .loc[lambda x: x.rank_peak <= assay.amount]
-                    .assign(max_peak=lambda x: x.peaks.max())
-                    .assign(ratio=lambda x: x.peaks / x.max_peak)
-                    .loc[lambda x: x.ratio > assay.min_ratio]
-                    .drop(columns=["rank_peak"])
-                )
+                if assay.which == "LARGEST" or assay.which == "":
+                    df = (
+                        df.assign(max_peak=lambda x: x.peaks.max())
+                        .assign(ratio=lambda x: x.peaks / x.max_peak)
+                        .loc[lambda x: x.ratio > assay.min_ratio]
+                        .assign(rank_peak=lambda x: x.peaks.rank(ascending=False))
+                        .loc[lambda x: x.rank_peak <= assay.amount]
+                        .drop(columns=["rank_peak"])
+                    )
+                elif assay.which == "FIRST":
+                    df = (
+                        df.assign(max_peak=lambda x: x.peaks.max())
+                        .assign(ratio=lambda x: x.peaks / x.max_peak)
+                        .loc[lambda x: x.ratio > assay.min_ratio]
+                        .sort_values("basepairs", ascending=True)
+                        .head(assay.amount)
+                    )
+                else:
+                    print("[ERROR]: column `which` must be `FIRST` or `LARGEST`")
+                    exit(1)
 
             customized_peaks.append(df)
 

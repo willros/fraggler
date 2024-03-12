@@ -34,12 +34,12 @@ To generate peak area reports and a peak table for all input files, use the `fra
 
 - If not specified, fraggler finds peaks agnostic in the `fsa file`. To specifiy custom assays with certain peaks and intervals, the user can add a .csv file to the `--custom_peaks` argument. The csv file MUST have the following shape:
 
-| name | start | stop | amount | min_ratio |
-|------|-------|------|--------|-----------|
-| prt1 | 140   | 150  | 2      | 0.2       |
+| name | start | stop | amount | min_ratio | which    |
+|------|-------|------|--------|-----------|----------|
+| prt1 | 140   | 150  | 2      | 0.2       | FIRST    |
 
 
-If `amount` or `min_ratio` are left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height. If `min_ratio` is set, only peaks with the a ratio of the `min_ratio` of the highest peak is included, *e.g.* if `min_ratio == .02`, only peaks with a height of 20 is included, if the highest peak is 100 units.
+If `amount` or `min_ratio` are left emtpy, `fraggler` will take all peaks inside the interval. If amount is not empty, fraggler will include the top `N` peaks in the interval, based on height. If `min_ratio` is set, only peaks with the a ratio of the `min_ratio` of the highest peak is included, *e.g.* if `min_ratio == .02`, only peaks with a height of 20 is included, if the highest peak is 100 units. The `which` column decides which peaks that should be included if there is more than the number in `amount` peaks found in that area. if `FIRST` is set, then the two first peaks are chosen. If `LARGEST` are set, then the two largests peaks in the area are chosen. If `which` is left empty, the default of is `LARGEST`.
 
 ```console
 fraggler peak IN_PATH OUT_FOLDER --ladder LIZ <flags>

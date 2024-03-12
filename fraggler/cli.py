@@ -30,7 +30,6 @@ ASCII_ART = f"""{f.RED}
            ░ ░     ░░   ░   ░   ▒   ░ ░   ░ ░ ░   ░   ░ ░      ░     ░░   ░
                     ░           ░  ░      ░       ░     ░  ░   ░  ░   ░
 """
-print(ASCII_ART)
 
 
 def save_df_format(
@@ -136,6 +135,7 @@ def area_report(
             continue
 
         # generate report and peak table
+
         peak_dfs.append(fraggler_object.areas.assays_dataframe(peak_model))
         report = fraggler.generate_area_report(fraggler_object, peak_model)
         out_name = out_folder / f"{file.stem}_fraggler_area.html"
