@@ -1,6 +1,5 @@
-"""
-fraggler.
-Easy Fragment Analyzing in python!
+r"""
+.. include:: ../README.md
 """
 
 __author__ = "William Rosenbaum and Pär Larsson"
