@@ -1,3 +1,8 @@
+[![Build Status](https://app.travis-ci.com/nla-group/fABBA.svg?branch=master)](https://app.travis-ci.com/github/nla-group/fABBA)
+![Build Status](https://github.com/willros/fraggler/tree/main/.github/workflows/pdoc.yaml/badge.svg)
+[![!pypi](https://img.shields.io/pypi/v/fraggler?color=cyan)](https://pypi.org/project/fraggler/)
+[![Download Status](https://static.pepy.tech/badge/fraggler)](https://pypi.python.org/pypi/fraggler/)
+
 ![logo](examples/logo.png)
 
 ## Description
