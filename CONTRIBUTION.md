@@ -18,7 +18,7 @@ If you can't help coding, but wants to help otherwise, please consider:
 
 ## FAQ
 
-> First, read the `README` or look read the documentation [Documentation](willros.github.io/fraggler/fraggler.html)
+> First, read the `README` or look read the documentation [Documentation](https://willros.github.io/fraggler/fraggler.html)
 
 > Otherwise, open a new issue and ask away!
 
