@@ -24,6 +24,7 @@ jobs:
           python-version: '3.12'
 
       - run: pip install -e .;pip install pdoc
+      - run: readlink -f /examples/logo.png
       - run: pdoc --logo ./examples/logo.png -o docs/ fraggler
 
       - uses: actions/upload-pages-artifact@v3
@@ -43,4 +44,5 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+      - uses: actions/deploy-pages@v4
