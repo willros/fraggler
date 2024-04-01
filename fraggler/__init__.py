@@ -1,5 +1,6 @@
 r"""
 .. include:: ../README.md
+.. include:: ../CONTRIBUTION.md
 """
 
 __author__ = "William Rosenbaum and Pär Larsson"
