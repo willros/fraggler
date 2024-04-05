@@ -23,6 +23,20 @@ Fraggler is a Python package that provides functionality for analyzing and gener
 pip install fraggler
 ```
 
+### Dependencies
+Fraggler depends on:
+- pandas
+- numpy,
+- scikit-learn
+- networkx
+- lmfit
+- scipy
+- biopython
+- panel
+- fire
+- colorama
+- altair
+
 ## Usage
 
 To get an overview how the library can be used in a python environment, please look at the [tutorial.ipynb](demo/tutorial.ipynb).
@@ -71,3 +85,5 @@ The following flags can be used with the `fraggler peak` or `fraggler area` comm
 ```console
 fraggler peak IN_FOLDER OUT_FOLDER ORANGE --min_ratio=0.2 
 ```
+## Contributions
+Please check out [How to contribute](CONTRIBUTIONS.md)
