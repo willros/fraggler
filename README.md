@@ -86,4 +86,4 @@ The following flags can be used with the `fraggler peak` or `fraggler area` comm
 fraggler peak IN_FOLDER OUT_FOLDER ORANGE --min_ratio=0.2 
 ```
 ## Contributions
-Please check out [How to contribute](CONTRIBUTIONS.md)
+Please check out [How to contribute](CONTRIBUTION.md)
