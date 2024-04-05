@@ -1,4 +1,4 @@
-![Build Status](https://github.com/willros/fraggler/tree/main/.github/workflows/pdoc.yaml/badge.svg)
+[![Build Status](https://github.com/willros/fraggler/tree/main/.github/workflows/pdoc.yaml/badge.svg)]
 [![!pypi](https://img.shields.io/pypi/v/fraggler?color=cyan)](https://pypi.org/project/fraggler/)
 [![Download Status](https://static.pepy.tech/badge/fraggler)](https://pypi.python.org/pypi/fraggler/)
 
