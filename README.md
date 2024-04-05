@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/willros/fraggler/actions/workflows/pdoc.yaml/badge.svg)
+![Build Status](https://github.com/willros/fraggler/actions/workflows/pdoc.yaml/badge.svg)
 [![!pypi](https://img.shields.io/pypi/v/fraggler?color=cyan)](https://pypi.org/project/fraggler/)
 [![Download Status](https://static.pepy.tech/badge/fraggler)](https://pypi.python.org/pypi/fraggler/)
 
@@ -19,14 +19,13 @@ Fraggler is a Python package that provides functionality for analyzing and gener
 
 ## Install
 
-Via pip:
 ```bash
 pip install fraggler
 ```
 
 ## Usage
 
-To get an overview how the library can be used in a python environment, please look at `tutorial.ipynb`.
+To get an overview how the library can be used in a python environment, please look at the [tutorial.ipynb](demo/tutorial.ipynb).
 
 
 ## CLI Tool
@@ -72,11 +71,3 @@ The following flags can be used with the `fraggler peak` or `fraggler area` comm
 ```console
 fraggler peak IN_FOLDER OUT_FOLDER ORANGE --min_ratio=0.2 
 ```
-
-
-
-
-
-
-
-
