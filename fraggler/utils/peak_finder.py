@@ -27,7 +27,7 @@ def is_overlapping(df: pd.DataFrame) -> bool:
             test.value_counts("intervals")
             .reset_index()
             .sort_values("intervals")
-            .loc[lambda x: x[0] > 1]
+            .loc[lambda x: x["count"] > 1]
             .iloc[0, 0]
         )
         logging.warning(

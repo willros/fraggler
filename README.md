@@ -26,7 +26,7 @@ pip install fraggler
 ### Dependencies
 Fraggler depends on:
 - pandas
-- numpy,
+- numpy
 - scikit-learn
 - networkx
 - lmfit
