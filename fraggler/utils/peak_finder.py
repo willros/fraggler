@@ -41,13 +41,13 @@ def is_overlapping(df: pd.DataFrame) -> bool:
 
 
 def has_columns(df: pd.DataFrame) -> bool:
-    columns = set(["name", "start", "stop", "amount", "min_ratio", "which"])
+    columns = set(["name", "start", "stop", "amount", "min_ratio", "which", "peak_distance"])
     df_columns = set(df.columns)
 
     if len(columns) != len(df_columns):
         logging.warning(
             f"""
-        Customized peaks table does not containg the right columns.
+        Customized peaks table does not contain the right columns.
         Current columns: {df_columns}
         Needed columns: {columns}
         """
@@ -58,7 +58,7 @@ def has_columns(df: pd.DataFrame) -> bool:
     if len(intersection) != len(df_columns):
         logging.warning(
             f"""
-        Customized peaks table does not containg the right columns.
+        Customized peaks table does not contain the right columns.
         Current columns: {df_columns}
         Needed columns: {columns}
         """
@@ -206,21 +206,40 @@ class PeakFinder:
             if assay.amount != 0:
                 if assay.which == "LARGEST" or assay.which == "":
                     df = (
-                        df.assign(max_peak=lambda x: x.peaks.max())
+                        df
+                        .assign(max_peak=lambda x: x.peaks.max())
                         .assign(ratio=lambda x: x.peaks / x.max_peak)
                         .loc[lambda x: x.ratio > assay.min_ratio]
                         .assign(rank_peak=lambda x: x.peaks.rank(ascending=False))
                         .loc[lambda x: x.rank_peak <= assay.amount]
                         .drop(columns=["rank_peak"])
                     )
+                    if assay.peak_distance != "":
+                        df = (
+                            df
+                            .assign(distance=lambda x: x.basepairs.diff())
+                            .assign(distance=lambda x: x.distance.fillna(999))
+                            .loc[lambda x: x.distance >= assay.peak_distance]
+                            .drop(columns=["distance"])
+                        )
+                    
                 elif assay.which == "FIRST":
                     df = (
-                        df.assign(max_peak=lambda x: x.peaks.max())
+                        df
+                        .assign(max_peak=lambda x: x.peaks.max())
                         .assign(ratio=lambda x: x.peaks / x.max_peak)
                         .loc[lambda x: x.ratio > assay.min_ratio]
                         .sort_values("basepairs", ascending=True)
                         .head(assay.amount)
                     )
+                    if assay.peak_distance != "":
+                        df = (
+                            df
+                            .assign(distance=lambda x: x.basepairs.diff())
+                            .assign(distance=lambda x: x.distance.fillna(999))
+                            .loc[lambda x: x.distance >= assay.peak_distance]
+                            .drop(columns=["distance"])
+                        )
                 else:
                     print("[ERROR]: column `which` must be `FIRST` or `LARGEST`")
                     exit(1)
