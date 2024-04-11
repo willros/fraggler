@@ -214,12 +214,12 @@ class PeakFinder:
                         .loc[lambda x: x.rank_peak <= assay.amount]
                         .drop(columns=["rank_peak"])
                     )
-                    if assay.peak_distance != "":
+                    if assay.peak_distance != 0:
                         df = (
                             df
                             .assign(distance=lambda x: x.basepairs.diff())
-                            .assign(distance=lambda x: x.distance.fillna(999))
-                            .loc[lambda x: x.distance >= assay.peak_distance]
+                            .assign(distance=lambda x: x.distance.fillna(0))
+                            .loc[lambda x: x.distance <= assay.peak_distance]
                             .drop(columns=["distance"])
                         )
                     
@@ -232,12 +232,12 @@ class PeakFinder:
                         .sort_values("basepairs", ascending=True)
                         .head(assay.amount)
                     )
-                    if assay.peak_distance != "":
+                    if assay.peak_distance != 0:
                         df = (
                             df
                             .assign(distance=lambda x: x.basepairs.diff())
-                            .assign(distance=lambda x: x.distance.fillna(999))
-                            .loc[lambda x: x.distance >= assay.peak_distance]
+                            .assign(distance=lambda x: x.distance.fillna(0))
+                            .loc[lambda x: x.distance <= assay.peak_distance]
                             .drop(columns=["distance"])
                         )
                 else:

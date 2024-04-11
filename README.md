@@ -58,10 +58,10 @@ To generate peak area reports and a peak table for all input files, use the `fra
 - `name`: Name of the assay
 - `start`: Start of the assay in basepairs
 - `stop`: Stop of the assay in basepairs
-- `amount`: Can be left empty. Amount of peaks in assay. If left empty every peak in the interval is included. 
-- `min_ratio`: Can be left empty. only peaks with the a ratio of the `min_ratio` of the highest peak is included, *e.g.* if `min_ratio == .02`, only peaks with a height of 20 is included, if the highest peak is 100 units
+- `amount`: Optional. Amount of peaks in assay. If left empty every peak in the interval is included. 
+- `min_ratio`: Optional. Only peaks with the a ratio of the `min_ratio` of the highest peak is included, *e.g.* if `min_ratio == .02`, only peaks with a height of 20 is included, if the highest peak is 100 units
 - `which`: `LARGEST | FIRST`. Can be left empty. Which peak should be included if there are more peaks than the `amount`. if `FIRST` is set, then the two first peaks are chosen. If `LARGEST` are set, then the two largests peaks in the area are chosen. Defaults to `LARGEST`
-- `peak_distance`: Can be left empty. Distance between peaks must be above this value.
+- `peak_distance`: Optional. Distance between peaks must be under this value.
 
 
 #### Positional Arguments
