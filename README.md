@@ -54,6 +54,14 @@ To generate peak area reports and a peak table for all input files, use the `fra
 |------|-------|------|--------|-----------|-------|---------------|
 | prt1 | 140   | 150  | 2      | 0.2       | FIRST | 5             |
 
+##### Example how how a file could look:
+```txt 
+name,start,stop,amount,min_ratio,which,peak_distance
+prt1,135,155,2,0.2,FIRST,
+prt3,190,205,,0.2,FIRST,
+prt2,222,236,2,0.2,FIRST,5
+prt4,262,290,5,,,
+```
 
 - `name`: Name of the assay
 - `start`: Start of the assay in basepairs
