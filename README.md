@@ -37,12 +37,12 @@ Fraggler depends on:
 - colorama
 - altair
 
-## Usage
+## Python API
 
 To get an overview how the library can be used in a python environment, please look at the [tutorial.ipynb](demo/tutorial.ipynb).
 
 
-## CLI Tool
+## CLI
 ### `fraggler area` and `fraggler peak`
 
 #### Usage
@@ -68,8 +68,8 @@ prt4,262,290,5,,,
 - `stop`: Stop of the assay in basepairs
 - `amount`: Optional. Amount of peaks in assay. If left empty every peak in the interval is included. 
 - `min_ratio`: Optional. Only peaks with the a ratio of the `min_ratio` of the highest peak is included, *e.g.* if `min_ratio == .02`, only peaks with a height of 20 is included, if the highest peak is 100 units
-- `which`: `LARGEST | FIRST`. Can be left empty. Which peak should be included if there are more peaks than the `amount`. if `FIRST` is set, then the two first peaks are chosen. If `LARGEST` are set, then the two largests peaks in the area are chosen. Defaults to `LARGEST`
-- `peak_distance`: Optional. Distance between peaks must be under this value.
+- `which`: *LARGEST | FIRST*. Can be left empty. Which peak should be included if there are more peaks than the `amount`. if *FIRST* is set, then the two first peaks are chosen. If *LARGEST* are set, then the two largests peaks in the area are chosen. Defaults to *LARGEST*
+- `peak_distance`: Optional. Distance between peaks must be ***under*** this value.
 
 
 #### Positional Arguments
