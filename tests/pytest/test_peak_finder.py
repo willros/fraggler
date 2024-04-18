@@ -1,8 +1,10 @@
+import pytest
 import pandas as pd
 import numpy as np
+import fraggler
 from fraggler.ladder_fitting.fit_ladder_model import FitLadderModel
 from fraggler.ladder_fitting.peak_ladder_assigner import PeakLadderAssigner
-from fraggler.utils.fsa_file import FsaFile
+from fraggler.utils.fsa_file import FsaFile, LadderNotFoundError
 
 from fraggler.utils.peak_finder import is_overlapping, has_columns, PeakFinder
 
@@ -26,7 +28,7 @@ def test_has_columns_correct():
             "amount": [],
             "min_ratio": [],
             "which": [],
-            "peak_distance": []
+            "peak_distance": [],
         }
     )
     assert has_columns(df) == True
@@ -48,6 +50,7 @@ def test_has_columns_extra_one():
             "amount": [],
             "min_ratio": [],
             "which": [],
+            "peak_distance": [],
             "extra": [],
         }
     )
@@ -55,16 +58,30 @@ def test_has_columns_extra_one():
 
 
 ##### Peak finder testing
-fsa_multiplex = FsaFile(
-    file="../../demo/multiplex.fsa", 
-    ladder="LIZ",
-)
 
-ladder_assigner_multiplex = PeakLadderAssigner(fsa_multiplex)
-model_multiplex = FitLadderModel(ladder_assigner_multiplex)
-pf_multiplex = PeakFinder(model_multiplex)
+
+@pytest.fixture
+def multiplex():
+    fsa_multiplex = FsaFile(
+        file="../../demo/multiplex.fsa",
+        ladder="LIZ",
+    )
+    ladder_assigner_multiplex = PeakLadderAssigner(fsa_multiplex)
+    model_multiplex = FitLadderModel(ladder_assigner_multiplex)
+    pf_multiplex = PeakFinder(model_multiplex)
+
+    return pf_multiplex
+
+
+def test_invalid_ladder_error():
+    invalid = "WRONG"
+    with pytest.raises(LadderNotFoundError) as excinfo:
+        fsa = FsaFile(
+            file="../../demo/multiplex.fsa",
+            ladder=invalid,
+        )
+    assert str(excinfo.value) == f"'{invalid}' is not a valid ladder"
 
 
 def test_peak_finder():
-    global pf_multiplex
     pass
