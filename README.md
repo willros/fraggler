@@ -96,5 +96,9 @@ The following flags can be used with the `fraggler peak` or `fraggler area` comm
 ```console
 fraggler area IN_FOLDER OUT_FOLDER LIZ --min_ratio=0.2 
 ```
+
+## Output
+One example of the report generated from `fraggler area` can be seen here: [report](examples/multiplex_fraggler_area.html)
+
 ## Contributions
 Please check out [How to contribute](CONTRIBUTION.md)
