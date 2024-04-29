@@ -5,6 +5,7 @@ import numpy as np
 from fraggler.ladders.ladders import LADDERS
 from fraggler.utils.baseline_removal import baseline_arPLS
 
+
 class LadderNotFoundError(Exception):
     pass
 

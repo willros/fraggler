@@ -40,7 +40,7 @@ def test_cli_working():
 
     peaks = "Number of assays found: 4\n        Number of peaks found: 10\n"
     assert peaks in result.stderr
-    
+
     wrong_peaks = "Number of assays found: 5\n        Number of peaks found: 10\n"
     assert wrong_peaks not in result.stderr
 

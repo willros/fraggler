@@ -57,22 +57,6 @@ def test_has_columns_extra_one():
     assert has_columns(df) == False
 
 
-##### Peak finder testing
-
-
-@pytest.fixture
-def multiplex():
-    fsa_multiplex = FsaFile(
-        file="../../demo/multiplex.fsa",
-        ladder="LIZ",
-    )
-    ladder_assigner_multiplex = PeakLadderAssigner(fsa_multiplex)
-    model_multiplex = FitLadderModel(ladder_assigner_multiplex)
-    pf_multiplex = PeakFinder(model_multiplex)
-
-    return pf_multiplex
-
-
 def test_invalid_ladder_error():
     invalid = "WRONG"
     with pytest.raises(LadderNotFoundError) as excinfo:
@@ -81,7 +65,3 @@ def test_invalid_ladder_error():
             ladder=invalid,
         )
     assert str(excinfo.value) == f"'{invalid}' is not a valid ladder"
-
-
-def test_peak_finder():
-    pass
