@@ -3,7 +3,7 @@ import numpy as np
 
 
 def test_fsa_file():
-    fsa = FsaFile(file="../../demo/multiplex.fsa", ladder="LIZ")
+    fsa = FsaFile(file="demo/multiplex.fsa", ladder="LIZ")
 
     assert fsa.file.name == "multiplex.fsa"
     assert fsa.ladder == "LIZ"
@@ -15,9 +15,9 @@ def test_fsa_file():
 
 
 def test_normalization():
-    fsa_norm = FsaFile(file="../../demo/multiplex.fsa", ladder="LIZ", normalize=True)
+    fsa_norm = FsaFile(file="demo/multiplex.fsa", ladder="LIZ", normalize=True)
     fsa_non_norm = FsaFile(
-        file="../../demo/multiplex.fsa", ladder="LIZ", normalize=False
+        file="demo/multiplex.fsa", ladder="LIZ", normalize=False
     )
 
     assert np.any(fsa_norm.trace != fsa_non_norm.trace)

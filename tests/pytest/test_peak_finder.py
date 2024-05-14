@@ -61,7 +61,7 @@ def test_invalid_ladder_error():
     invalid = "WRONG"
     with pytest.raises(LadderNotFoundError) as excinfo:
         fsa = FsaFile(
-            file="../../demo/multiplex.fsa",
+            file="demo/multiplex.fsa",
             ladder=invalid,
         )
     assert str(excinfo.value) == f"'{invalid}' is not a valid ladder"

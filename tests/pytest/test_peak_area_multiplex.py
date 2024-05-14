@@ -7,7 +7,7 @@ import fraggler
 @pytest.fixture
 def pam():
     fsa_multiplex = fraggler.FsaFile(
-        file="../../demo/multiplex.fsa",
+        file="demo/multiplex.fsa",
         ladder="LIZ",
     )
     ladder_assigner_multiplex = fraggler.PeakLadderAssigner(fsa_multiplex)

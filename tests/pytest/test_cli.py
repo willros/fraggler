@@ -28,14 +28,14 @@ def test_not_working():
 
 def test_wrong_ladder():
     with pytest.raises(subprocess.CalledProcessError) as e:
-        result = run_command("fraggler area ../../demo/multiplex.fsa TEST_MULTI WRONG")
+        result = run_command("fraggler area demo/multiplex.fsa TEST_MULTI WRONG")
         assert result.returncode != 0
 
 
 def test_cli_working():
-    result = run_command("fraggler area ../../demo/multiplex.fsa TEST_MULTI LIZ")
+    result = run_command("fraggler area demo/multiplex.fsa TEST_MULTI LIZ")
     assert result.returncode == 0
-    text = "Running fraggler with following parameters:\n        In path: ../../demo/multiplex.fsa\n        Out folder: TEST_MULTI\n        Ladder: LIZ\n        Peak model: gauss\n        Min ratio: 0.2\n        Min height: 30\n        Cutoff: 175\n        Trace channel: DATA1\n        Peak Height: 500\n        Custom Peaks: None\n        Out format: excel\n        Size standard channel: None\n        Distance between assays: 15\n"
+    text = "Running fraggler with following parameters:\n        In path: demo/multiplex.fsa\n        Out folder: TEST_MULTI\n        Ladder: LIZ\n        Peak model: gauss\n        Min ratio: 0.2\n        Min height: 30\n        Cutoff: 175\n        Trace channel: DATA1\n        Peak Height: 500\n        Custom Peaks: None\n        Out format: excel\n        Size standard channel: None\n        Distance between assays: 15\n"
     assert text in result.stderr
 
     peaks = "Number of assays found: 4\n        Number of peaks found: 10\n"

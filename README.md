@@ -97,8 +97,11 @@ The following flags can be used with the `fraggler peak` or `fraggler area` comm
 fraggler area IN_FOLDER OUT_FOLDER LIZ --min_ratio=0.2 
 ```
 
+#### Documentation
+Click [here](https://willros.github.io/fraggler/fraggler.html) to get full documentation of API.
+
 ## Output
-One example of the report generated from `fraggler area` can be seen here: [report](examples/multiplex_fraggler_area.html)
+One example of the report generated from `fraggler area` can be seen here: [](examples/multiplex_fraggler_area.html)
 
 ## Contributions
 Please check out [How to contribute](CONTRIBUTION.md)
